@@ -33,12 +33,10 @@ export class UsersService {
   }
 
   async getUserById(id: ObjectId): Promise<IUser> {
-    return this.userModel.findById(id);
+    return await this.userModel.findById(id);
   }
 
   async getUserByEmail(email: string): Promise<IUser> {
-    const user = await this.userModel.findOne({ email });
-
-    return user;
+    return await this.userModel.findOne({ email });
   }
 }

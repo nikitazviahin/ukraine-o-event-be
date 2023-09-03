@@ -7,7 +7,7 @@ import ICreateUserResponse from './interfaces/createUserResponse.interface';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post('auth/signup')
+  @Post('signup')
   async createUser(
     @Body() createUserDto: CreateUserDto,
   ): Promise<ICreateUserResponse> {

@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { User, UserDocument } from './users.model';
 import * as bcrypt from 'bcrypt';
+import IUser from './interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
@@ -31,7 +32,13 @@ export class UsersService {
     return { id: newUser.id };
   }
 
-  async getUserById(id: ObjectId): Promise<User> {
+  async getUserById(id: ObjectId): Promise<IUser> {
     return this.userModel.findById(id);
+  }
+
+  async getUserByEmail(email: string): Promise<IUser> {
+    const user = await this.userModel.findOne({ email });
+
+    return user;
   }
 }

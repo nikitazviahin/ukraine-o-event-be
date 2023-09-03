@@ -74,3 +74,5 @@ Nest is [MIT licensed](LICENSE).
 
 ## .env example
 
+MONGO_URI=
+JWT_SECRET=

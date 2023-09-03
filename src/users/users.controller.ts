@@ -1,16 +1,16 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/createUser.dto';
-import ICreateUserResponce from './interfaces/createUserResponce.interface';
+import ICreateUserResponse from './interfaces/createUserResponse.interface';
 
-@Controller('auth')
+@Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post('/signup')
+  @Post('auth/signup')
   async createUser(
     @Body() createUserDto: CreateUserDto,
-  ): Promise<ICreateUserResponce> {
+  ): Promise<ICreateUserResponse> {
     const result = await this.usersService.createUser(
       createUserDto.email,
       createUserDto.password,

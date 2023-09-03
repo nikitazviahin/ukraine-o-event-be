@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongoose';
 
-export default interface ICreateUserResponce {
+export default interface ICreateUserResponse {
   id: ObjectId;
 }

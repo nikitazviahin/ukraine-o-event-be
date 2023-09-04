@@ -76,3 +76,4 @@ Nest is [MIT licensed](LICENSE).
 
 MONGO_URI=
 JWT_SECRET=
+PORT=

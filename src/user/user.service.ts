@@ -1,17 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { User, UserDocument } from './users.model';
+import { UserDocument } from './user.model';
 import * as bcrypt from 'bcrypt';
-import IUser from './interfaces/user.interface';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @InjectModel('user') private readonly userModel: Model<UserDocument>,
   ) {}
 
-  async createUser(email: string, password: string): Promise<{ id: ObjectId }> {
+  async createUser(email: string, password: string) {
     const saltOrRounds = 10;
 
     const hashedPassword = await bcrypt.hash(password, saltOrRounds);
@@ -32,11 +31,11 @@ export class UsersService {
     return { id: newUser.id };
   }
 
-  async getUserById(id: ObjectId): Promise<IUser> {
+  async getUserById(id: ObjectId) {
     return await this.userModel.findById(id);
   }
 
-  async getUserByEmail(email: string): Promise<IUser> {
+  async getUserByEmail(email: string) {
     return await this.userModel.findOne({ email });
   }
 }

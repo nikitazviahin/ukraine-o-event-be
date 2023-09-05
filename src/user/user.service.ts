@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { UserDocument } from './user.model';
 import * as bcrypt from 'bcrypt';
+import ICreateUser from './interfaces/createUser.interface';
 
 @Injectable()
 export class UserService {
@@ -10,12 +11,14 @@ export class UserService {
     @InjectModel('user') private readonly userModel: Model<UserDocument>,
   ) {}
 
-  async createUser(email: string, password: string) {
+  async createUser(userData: ICreateUser) {
     const saltOrRounds = 10;
 
-    const hashedPassword = await bcrypt.hash(password, saltOrRounds);
+    const hashedPassword = await bcrypt.hash(userData.password, saltOrRounds);
 
-    const isUserExists = await this.userModel.findOne({ email });
+    const isUserExists = await this.userModel.findOne({
+      email: userData.email,
+    });
 
     if (isUserExists)
       throw new HttpException(
@@ -24,7 +27,7 @@ export class UserService {
       );
 
     const newUser = await this.userModel.create({
-      email,
+      ...userData,
       password: hashedPassword,
     });
 

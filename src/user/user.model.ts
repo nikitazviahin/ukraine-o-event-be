@@ -6,10 +6,10 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
-  @Prop({ unique: true, required: true })
+  @Prop({ type: String, unique: true, required: true })
   email: string;
 
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   password: string;
 
   @Prop({
@@ -19,6 +19,26 @@ export class User {
     default: EUserRole.Customer,
   })
   role: EUserRole;
+
+  @Prop({
+    required: true,
+  })
+  firstName: string;
+
+  @Prop({
+    type: String,
+    required: true,
+  })
+  lastName: string;
+
+  @Prop({ type: String, required: true })
+  dateOfBirth: String;
+
+  @Prop({ type: String })
+  club: string;
+
+  @Prop({ type: Number })
+  si: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

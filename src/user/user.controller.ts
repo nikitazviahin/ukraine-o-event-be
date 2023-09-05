@@ -13,10 +13,15 @@ export class UserController {
   async createUser(
     @Body() createUserDto: CreateUserDto,
   ): Promise<ICreateUserResponse> {
-    const result = await this.usersService.createUser(
-      createUserDto.email,
-      createUserDto.password,
-    );
+    const result = await this.usersService.createUser({
+      email: createUserDto.email,
+      password: createUserDto.password,
+      firstName: createUserDto.firstName,
+      lastName: createUserDto.lastName,
+      dateOfBirth: createUserDto.dateOfBirth,
+      club: createUserDto.club ?? null,
+      si: createUserDto.si ?? null,
+    });
     return result;
   }
 }

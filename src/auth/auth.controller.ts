@@ -4,6 +4,8 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import ILoginResponse from './interfaces/loginResponse.interface';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Request as ExpressRequest } from 'express';
+import { RoleGuard } from './guards/role.guard';
+import { Roles } from './decorators/roles.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -19,5 +21,12 @@ export class AuthController {
   @Get('profile')
   getProfile(@Request() req: ExpressRequest) {
     return req.user;
+  }
+
+  @Roles('admin')
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Get('admintest')
+  getAdminTest(@Request() req: ExpressRequest) {
+    return { message: 'endpoint for admin' };
   }
 }

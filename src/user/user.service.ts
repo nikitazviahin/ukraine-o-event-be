@@ -26,10 +26,15 @@ export class UserService {
         HttpStatus.BAD_REQUEST,
       );
 
-    const newUser = await this.userModel.create({
+    const user = {
       ...userData,
       password: hashedPassword,
-    });
+    };
+
+    if (userData.club) user.club = userData.club;
+    if (userData.si) user.si = userData.si;
+
+    const newUser = await this.userModel.create(user);
 
     return { id: newUser.id };
   }

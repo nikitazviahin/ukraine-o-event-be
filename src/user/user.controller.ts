@@ -19,8 +19,8 @@ export class UserController {
       firstName: createUserDto.firstName,
       lastName: createUserDto.lastName,
       dateOfBirth: createUserDto.dateOfBirth,
-      club: createUserDto.club ?? null,
-      si: createUserDto.si ?? null,
+      club: createUserDto.club,
+      si: createUserDto.si,
     });
     return result;
   }

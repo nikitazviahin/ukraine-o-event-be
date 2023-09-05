@@ -9,8 +9,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from '../user/user.model';
 import { LocalStrategy } from './strategies/local.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Module({
   imports: [

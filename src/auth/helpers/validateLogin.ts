@@ -9,7 +9,6 @@ const validateLogin = async (context: ExecutionContext) => {
   const response = context.switchToHttp().getResponse<Response>();
 
   const body = plainToClass(LogInUserDto, request.body);
-
   const errors = await validate(body);
 
   const errorMessages = errors.flatMap(({ constraints }) =>
@@ -17,8 +16,6 @@ const validateLogin = async (context: ExecutionContext) => {
   );
 
   if (errorMessages.length > 0) {
-    // return bad request if validation fails
-
     response.status(HttpStatus.BAD_REQUEST).send({
       statusCode: HttpStatus.BAD_REQUEST,
       error: 'Bad Request',

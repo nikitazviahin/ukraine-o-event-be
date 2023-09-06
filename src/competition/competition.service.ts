@@ -1,5 +1,9 @@
 import { Model } from 'mongoose';
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CompetitionDocument } from './competition.model';
 import { ICreateCompetition } from './interfaces/createCompetition.interface';
@@ -27,11 +31,13 @@ export class CompetitionService {
   }
 
   async updateCompetitionById(data: IUpdateCompetitionById) {
-    const competiionToUpdate = await this.competitionModel.findById(
+    const competitionToUpdate = await this.competitionModel.findById(
       data.competitionId,
     );
 
-    if (competiionToUpdate.ownerId !== data.userId)
+    if (!competitionToUpdate) throw new NotFoundException();
+
+    if (competitionToUpdate.ownerId !== data.userId)
       throw new ForbiddenException();
 
     const updatedCompetition = await this.competitionModel.findByIdAndUpdate(
@@ -39,6 +45,7 @@ export class CompetitionService {
       {
         ...data,
       },
+      { new: true },
     );
 
     return updatedCompetition;

@@ -6,6 +6,7 @@ import {
   UseGuards,
   Param,
   Put,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { CompetitionService } from './competition.service';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
@@ -16,6 +17,7 @@ import { CreateCompetitionDto } from './dtos/createCompetition.dto';
 import { UpdateCompetitionByIdDto } from './dtos/updateCompetitionById.dto';
 import { IParametersId } from 'src/interfaces/parametersId.interface';
 import { castObjectId } from 'src/helpers/castObjectId';
+import { ParseObjectIdPipe } from 'src/pipes/parseObjectId.pipe';
 
 @Controller('competitions')
 export class CompetitionController {
@@ -57,8 +59,9 @@ export class CompetitionController {
   async updateCompetitionById(
     @Request() req: IGetUserAuthInfoRequest,
     @Body() updateCompetitionByIdDto: UpdateCompetitionByIdDto,
-    @Param() params: IParametersId,
+    @Param('id', ParseObjectIdPipe) params: IParametersId,
   ) {
+    
     const result = await this.competitionService.updateCompetitionById({
       ...updateCompetitionByIdDto,
       competitionId: castObjectId(params.id),

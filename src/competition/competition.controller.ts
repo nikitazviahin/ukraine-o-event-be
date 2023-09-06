@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { CompetitionService } from './competition.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { Request } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { IGetUserAuthInfoRequest } from 'src/interfaces/requestUserInfo.interface';
@@ -21,8 +21,8 @@ import { castObjectId } from 'src/helpers/castObjectId';
 export class CompetitionController {
   constructor(private readonly competitionService: CompetitionService) {}
 
-  @ApiBearerAuth()
   @ApiTags('competitions')
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post()
   async createCompetition(
@@ -37,8 +37,8 @@ export class CompetitionController {
     return result;
   }
 
-  @ApiBearerAuth()
   @ApiTags('competitions')
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('owner')
   async getCompetitionsByOwnerId(@Request() req: IGetUserAuthInfoRequest) {
@@ -49,8 +49,9 @@ export class CompetitionController {
     return result;
   }
 
-  @ApiBearerAuth()
   @ApiTags('competitions')
+  @ApiBearerAuth()
+  @ApiParam({ name: 'id', type: String })
   @UseGuards(JwtAuthGuard)
   @Put(':id')
   async updateCompetitionById(

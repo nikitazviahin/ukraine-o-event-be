@@ -30,16 +30,16 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
-  @ApiBearerAuth()
   @ApiTags('auth')
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req: IGetUserAuthInfoRequest) {
     return req.user;
   }
 
-  @ApiBearerAuth()
   @ApiTags('auth')
+  @ApiBearerAuth()
   @Roles('admin')
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Get('admintest')

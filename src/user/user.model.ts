@@ -4,7 +4,7 @@ import { EUserRole } from './interfaces/userRole.enum';
 
 export type UserDocument = User & Document;
 
-@Schema()
+@Schema({ versionKey: false })
 export class User {
   @Prop({ type: String, unique: true, required: true })
   email: string;

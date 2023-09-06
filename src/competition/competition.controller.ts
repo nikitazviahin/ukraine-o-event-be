@@ -1,6 +1,6 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Get, UseGuards, Param } from '@nestjs/common';
 import { CompetitionService } from './competition.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { Request } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { IGetUserAuthInfoRequest } from 'src/interfaces/requestUserInfo.interface';
@@ -23,6 +23,18 @@ export class CompetitionController {
       ...createCompetitionDto,
       ownerId: req.user.id,
     });
+    return result;
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('competitions')
+  @UseGuards(JwtAuthGuard)
+  @Get('owner')
+  async getCompetitionsByOwnerId(@Request() req: IGetUserAuthInfoRequest) {
+    const result = await this.competitionService.getCompetitionsByOwnedId(
+      req.user.id,
+    );
+
     return result;
   }
 }

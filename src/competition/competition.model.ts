@@ -5,7 +5,7 @@ import { EDay } from './interfaces/day.enum';
 
 export type CompetitionDocument = Competition & Document;
 
-@Schema()
+@Schema({ versionKey: false })
 export class Competition {
   @Prop({ type: String, required: true })
   name: string;

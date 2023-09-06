@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { ObjectId } from '../helpers/objectId';
+import { ObjectId } from './objectId';
 
 interface IGetUserAuthInfoRequest extends Request {
   user: {

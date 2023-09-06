@@ -1,6 +1,6 @@
 import { EClass } from './class.enum';
 import { EDay } from './day.enum';
-import { ObjectId } from 'src/helpers/objectId';
+import { ObjectId } from 'src/interfaces/objectId';
 
 export interface ICreateCompetition {
   name: string;

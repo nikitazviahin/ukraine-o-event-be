@@ -6,14 +6,14 @@ import {
   Get,
   Body,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { IGetUserAuthInfoRequest } from 'src/interfaces/requestUserInfo.interface';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import ILoginResponse from './interfaces/loginResponse.interface';
+import { ILoginResponse } from './interfaces/loginResponse.interface';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { Request as ExpressRequest } from 'express';
 import { RoleGuard } from './guards/role.guard';
 import { Roles } from './decorators/roles.decorator';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { LogInUserDto } from './dtos/loginUser.dto';
 
 @Controller('auth')
@@ -24,8 +24,8 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(
-    @Body() loginUserDto: LogInUserDto,
-    @Request() req: ExpressRequest,
+    @Body() _: LogInUserDto, //dto for custom validation purposes
+    @Request() req: IGetUserAuthInfoRequest,
   ): Promise<ILoginResponse> {
     return this.authService.login(req.user);
   }
@@ -34,14 +34,14 @@ export class AuthController {
   @ApiTags('auth')
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req: ExpressRequest) {
+  getProfile(@Request() req: IGetUserAuthInfoRequest) {
     return req.user;
   }
 
   @Roles('admin')
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Get('admintest')
-  getAdminTest(@Request() req: ExpressRequest) {
+  getAdminTest() {
     return { message: 'endpoint for admin' };
   }
 }

@@ -1,4 +1,4 @@
-export default interface ICreateUser {
+interface ICreateUser {
   email: string;
 
   password: string;
@@ -13,3 +13,5 @@ export default interface ICreateUser {
 
   si?: number;
 }
+
+export { ICreateUser };

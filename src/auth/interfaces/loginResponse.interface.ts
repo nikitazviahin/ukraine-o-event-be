@@ -1,3 +1,5 @@
-export default interface ILoginResponse {
+interface ILoginResponse {
   access_token: string;
 }
+
+export { ILoginResponse };

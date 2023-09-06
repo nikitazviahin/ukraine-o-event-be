@@ -3,4 +3,4 @@ enum EUserRole {
   Customer = 'customer',
 }
 
-export default EUserRole;
+export { EUserRole };

@@ -6,16 +6,14 @@ import {
   UseGuards,
   Param,
   Put,
-  ParseUUIDPipe,
 } from '@nestjs/common';
-import { CompetitionService } from './competition.service';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { Request } from '@nestjs/common';
+import { CompetitionService } from './competition.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { IGetUserAuthInfoRequest } from 'src/interfaces/requestUserInfo.interface';
 import { CreateCompetitionDto } from './dtos/createCompetition.dto';
 import { UpdateCompetitionByIdDto } from './dtos/updateCompetitionById.dto';
-import { castObjectId } from 'src/helpers/castObjectId';
 import { ParseObjectIdPipe } from 'src/pipes/parseObjectId.pipe';
 
 @Controller('competitions')

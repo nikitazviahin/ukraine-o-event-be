@@ -9,6 +9,7 @@ import { CompetitionDocument } from './competition.model';
 import { ICreateCompetition } from './interfaces/createCompetition.interface';
 import { ObjectId } from 'src/interfaces/objectId';
 import { IUpdateCompetitionById } from './interfaces/updateCompetitionById.interface';
+import { castObjectId } from 'src/helpers/castObjectId';
 
 @Injectable()
 export class CompetitionService {
@@ -31,8 +32,9 @@ export class CompetitionService {
   }
 
   async updateCompetitionById(data: IUpdateCompetitionById) {
+    const competitionId = castObjectId(data.competitionId);
     const competitionToUpdate = await this.competitionModel.findById(
-      data.competitionId,
+      competitionId,
     );
 
     if (!competitionToUpdate) throw new NotFoundException();
@@ -41,7 +43,7 @@ export class CompetitionService {
       throw new ForbiddenException();
 
     const updatedCompetition = await this.competitionModel.findByIdAndUpdate(
-      data.competitionId,
+      competitionId,
       {
         ...data,
       },

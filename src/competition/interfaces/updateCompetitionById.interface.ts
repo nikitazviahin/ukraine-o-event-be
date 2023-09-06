@@ -3,9 +3,9 @@ import { EClass } from './class.enum';
 import { EDay } from './day.enum';
 
 export interface IUpdateCompetitionById {
-  competitionId: ObjectId;
+  competitionId: ObjectId | string;
 
-  userId: ObjectId;
+  userId: ObjectId | string;
 
   name?: string;
 

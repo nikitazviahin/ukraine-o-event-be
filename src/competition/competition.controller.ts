@@ -15,7 +15,6 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { IGetUserAuthInfoRequest } from 'src/interfaces/requestUserInfo.interface';
 import { CreateCompetitionDto } from './dtos/createCompetition.dto';
 import { UpdateCompetitionByIdDto } from './dtos/updateCompetitionById.dto';
-import { IParametersId } from 'src/interfaces/parametersId.interface';
 import { castObjectId } from 'src/helpers/castObjectId';
 import { ParseObjectIdPipe } from 'src/pipes/parseObjectId.pipe';
 
@@ -59,12 +58,11 @@ export class CompetitionController {
   async updateCompetitionById(
     @Request() req: IGetUserAuthInfoRequest,
     @Body() updateCompetitionByIdDto: UpdateCompetitionByIdDto,
-    @Param('id', ParseObjectIdPipe) params: IParametersId,
+    @Param('id', ParseObjectIdPipe) params,
   ) {
-    
     const result = await this.competitionService.updateCompetitionById({
       ...updateCompetitionByIdDto,
-      competitionId: castObjectId(params.id),
+      competitionId: params.id,
       userId: req.user.id,
     });
 

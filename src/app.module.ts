@@ -18,6 +18,8 @@ import { CompetitionModule } from './competition/competition.module';
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get<string>('mongoDb.uri'),
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
       }),
       inject: [ConfigService],
     }),

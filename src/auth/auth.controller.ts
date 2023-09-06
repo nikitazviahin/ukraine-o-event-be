@@ -38,6 +38,8 @@ export class AuthController {
     return req.user;
   }
 
+  @ApiBearerAuth()
+  @ApiTags('auth')
   @Roles('admin')
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Get('admintest')

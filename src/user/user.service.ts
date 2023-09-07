@@ -13,13 +13,12 @@ export class UserService {
   ) {}
 
   async createUser(userData: ICreateUser) {
+    const { email, password, club, si } = userData;
     const saltOrRounds = 10;
 
-    const hashedPassword = await bcrypt.hash(userData.password, saltOrRounds);
+    const hashedPassword = await bcrypt.hash(password, saltOrRounds);
 
-    const isUserExists = await this.userModel.findOne({
-      email: userData.email,
-    });
+    const isUserExists = await this.getUserByEmail(email);
 
     if (isUserExists)
       throw new HttpException(
@@ -32,8 +31,8 @@ export class UserService {
       password: hashedPassword,
     };
 
-    if (userData.club) user.club = userData.club;
-    if (userData.si) user.si = userData.si;
+    if (club) user.club = club;
+    if (si) user.si = si;
 
     const newUser = await this.userModel.create(user);
 

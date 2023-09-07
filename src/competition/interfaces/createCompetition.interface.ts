@@ -1,5 +1,5 @@
-import { EClass } from './class.enum';
-import { EDay } from './day.enum';
+import { EClass } from '../enums/class.enum';
+import { EDay } from '../enums/day.enum';
 import { ObjectId } from 'src/interfaces/objectId';
 
 export interface ICreateCompetition {

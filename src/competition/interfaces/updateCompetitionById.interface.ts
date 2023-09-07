@@ -1,23 +1,8 @@
 import { ObjectId } from 'src/interfaces/objectId';
-import { EClass } from './class.enum';
-import { EDay } from './day.enum';
+import { ICreateCompetition } from './createCompetition.interface';
 
-export interface IUpdateCompetitionById {
+export interface IUpdateCompetitionById extends Partial<ICreateCompetition> {
   competitionId: ObjectId;
 
   userId: ObjectId;
-
-  name?: string;
-
-  description?: string;
-
-  startDate?: Date;
-
-  endDate?: Date;
-
-  city?: string;
-
-  days?: EDay[];
-
-  classes?: EClass[];
 }

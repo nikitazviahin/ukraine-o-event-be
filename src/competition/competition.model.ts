@@ -1,7 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { EClass } from './interfaces/class.enum';
-import { EDay } from './interfaces/day.enum';
+import { EClass } from './enums/class.enum';
+import { EDay } from './enums/day.enum';
 
 export type CompetitionDocument = Competition & Document;
 

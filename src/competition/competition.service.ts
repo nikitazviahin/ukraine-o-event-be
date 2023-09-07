@@ -31,15 +31,14 @@ export class CompetitionService {
   }
 
   async updateCompetitionById(data: IUpdateCompetitionById) {
-    const competitionId = data.competitionId;
+    const { competitionId, userId } = data;
     const competitionToUpdate = await this.competitionModel.findById(
       competitionId,
     );
 
     if (!competitionToUpdate) throw new NotFoundException();
 
-    if (competitionToUpdate.ownerId !== data.userId)
-      throw new ForbiddenException();
+    if (competitionToUpdate.ownerId !== userId) throw new ForbiddenException();
 
     const updatedCompetition = await this.competitionModel.findByIdAndUpdate(
       competitionId,

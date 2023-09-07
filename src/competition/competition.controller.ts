@@ -41,7 +41,7 @@ export class CompetitionController {
   @UseGuards(JwtAuthGuard)
   @Get('owner')
   async getCompetitionsByOwnerId(@Request() req: IGetUserAuthInfoRequest) {
-    const result = await this.competitionService.getCompetitionsByOwnedId(
+    const result = await this.competitionService.getCompetitionsByOwnerId(
       req.user.id,
     );
 
@@ -56,11 +56,11 @@ export class CompetitionController {
   async updateCompetitionById(
     @Request() req: IGetUserAuthInfoRequest,
     @Body() updateCompetitionByIdDto: UpdateCompetitionByIdDto,
-    @Param('id', ParseObjectIdPipe) params,
+    @Param('id', ParseObjectIdPipe) id: string,
   ) {
     const result = await this.competitionService.updateCompetitionById({
       ...updateCompetitionByIdDto,
-      competitionId: params.id,
+      competitionId: id,
       userId: req.user.id,
     });
 

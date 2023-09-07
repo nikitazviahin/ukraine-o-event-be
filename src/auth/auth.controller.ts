@@ -16,11 +16,11 @@ import { RoleGuard } from './guards/role.guard';
 import { Roles } from './decorators/roles.decorator';
 import { LogInUserDto } from './dtos/loginUser.dto';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @ApiTags('auth')
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(
@@ -30,7 +30,6 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
-  @ApiTags('auth')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('profile')
@@ -38,7 +37,6 @@ export class AuthController {
     return req.user;
   }
 
-  @ApiTags('auth')
   @ApiBearerAuth()
   @Roles('admin')
   @UseGuards(JwtAuthGuard, RoleGuard)

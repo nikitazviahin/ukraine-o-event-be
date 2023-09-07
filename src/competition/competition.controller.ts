@@ -16,11 +16,11 @@ import { CreateCompetitionDto } from './dtos/createCompetition.dto';
 import { UpdateCompetitionByIdDto } from './dtos/updateCompetitionById.dto';
 import { ParseObjectIdPipe } from 'src/pipes/parseObjectId.pipe';
 
+@ApiTags('competitions')
 @Controller('competitions')
 export class CompetitionController {
   constructor(private readonly competitionService: CompetitionService) {}
 
-  @ApiTags('competitions')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -36,7 +36,6 @@ export class CompetitionController {
     return result;
   }
 
-  @ApiTags('competitions')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('owner')
@@ -48,7 +47,6 @@ export class CompetitionController {
     return result;
   }
 
-  @ApiTags('competitions')
   @ApiBearerAuth()
   @ApiParam({ name: 'id', type: String })
   @UseGuards(JwtAuthGuard)

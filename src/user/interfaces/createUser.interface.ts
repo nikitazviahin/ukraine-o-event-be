@@ -7,7 +7,7 @@ interface ICreateUser {
 
   lastName: string;
 
-  dateOfBirth: string;
+  dateOfBirth: Date;
 
   club?: string;
 

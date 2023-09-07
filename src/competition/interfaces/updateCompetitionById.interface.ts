@@ -3,17 +3,17 @@ import { EClass } from './class.enum';
 import { EDay } from './day.enum';
 
 export interface IUpdateCompetitionById {
-  competitionId: ObjectId | string;
+  competitionId: ObjectId;
 
-  userId: ObjectId | string;
+  userId: ObjectId;
 
   name?: string;
 
   description?: string;
 
-  startDate?: string;
+  startDate?: Date;
 
-  endDate?: string;
+  endDate?: Date;
 
   city?: string;
 

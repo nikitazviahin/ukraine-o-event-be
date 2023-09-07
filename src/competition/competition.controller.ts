@@ -15,6 +15,7 @@ import { IGetUserAuthInfoRequest } from 'src/interfaces/requestUserInfo.interfac
 import { CreateCompetitionDto } from './dtos/createCompetition.dto';
 import { UpdateCompetitionByIdDto } from './dtos/updateCompetitionById.dto';
 import { ParseObjectIdPipe } from 'src/pipes/parseObjectId.pipe';
+import { ObjectId } from 'src/interfaces/objectId';
 
 @ApiTags('competitions')
 @Controller('competitions')
@@ -54,7 +55,7 @@ export class CompetitionController {
   async updateCompetitionById(
     @Request() req: IGetUserAuthInfoRequest,
     @Body() updateCompetitionByIdDto: UpdateCompetitionByIdDto,
-    @Param('id', ParseObjectIdPipe) id: string,
+    @Param('id', ParseObjectIdPipe) id: ObjectId,
   ) {
     const result = await this.competitionService.updateCompetitionById({
       ...updateCompetitionByIdDto,

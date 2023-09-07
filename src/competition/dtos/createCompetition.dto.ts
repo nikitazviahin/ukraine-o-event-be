@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsString } from 'class-validator';
+import { IsDateString, IsEnum, IsString } from 'class-validator';
 import { EClass } from '../interfaces/class.enum';
 import { EDay } from '../interfaces/day.enum';
 
@@ -13,12 +13,12 @@ export class CreateCompetitionDto {
   description: string;
 
   @ApiProperty()
-  @IsString()
-  startDate: string;
+  @IsDateString()
+  startDate: Date;
 
   @ApiProperty()
-  @IsString()
-  endDate: string;
+  @IsDateString()
+  endDate: Date;
 
   @ApiProperty()
   @IsString()

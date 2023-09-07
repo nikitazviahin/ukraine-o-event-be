@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsDateString, IsEnum, IsOptional, IsString } from 'class-validator';
 import { EClass } from '../interfaces/class.enum';
 import { EDay } from '../interfaces/day.enum';
 
@@ -15,14 +15,14 @@ export class UpdateCompetitionByIdDto {
   description: string;
 
   @ApiProperty()
-  @IsString()
+  @IsDateString()
   @IsOptional()
-  startDate: string;
+  startDate: Date;
 
   @ApiProperty()
-  @IsString()
+  @IsDateString()
   @IsOptional()
-  endDate: string;
+  endDate: Date;
 
   @ApiProperty()
   @IsString()

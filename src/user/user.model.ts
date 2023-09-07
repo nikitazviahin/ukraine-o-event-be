@@ -33,8 +33,8 @@ export class User {
   })
   lastName: string;
 
-  @Prop({ type: String, required: true })
-  dateOfBirth: String;
+  @Prop({ type: Date, required: true })
+  dateOfBirth: Date;
 
   @Prop({ type: String })
   club: string;

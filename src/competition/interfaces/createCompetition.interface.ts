@@ -7,9 +7,9 @@ export interface ICreateCompetition {
 
   description: string;
 
-  startDate: string;
+  startDate: Date;
 
-  endDate: string;
+  endDate: Date;
 
   city: string;
 

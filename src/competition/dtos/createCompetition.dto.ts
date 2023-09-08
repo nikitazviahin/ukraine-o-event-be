@@ -4,23 +4,29 @@ import { EClass } from '../enums/class.enum';
 import { EDay } from '../enums/day.enum';
 
 export class CreateCompetitionDto {
-  @ApiProperty()
+  @ApiProperty({ description: 'Competition name', example: 'Lion-cup' })
   @IsString()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Competition description',
+    example: 'Annual competition with great distances etc...',
+  })
   @IsString()
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Competition start date', example: '2023-08-11' })
   @IsDateString()
   startDate: Date;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Competition end date', example: '2023-08-12' })
   @IsDateString()
   endDate: Date;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'City or area where competition is held',
+    example: 'Lviv',
+  })
   @IsString()
   city: string;
 

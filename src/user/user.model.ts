@@ -13,12 +13,12 @@ export class User {
   password: string;
 
   @Prop({
-    type: String,
+    type: [String],
     required: true,
     enum: EUserRole,
-    default: EUserRole.Customer,
+    default: [EUserRole.Customer],
   })
-  role: EUserRole;
+  roles: EUserRole[];
 
   @Prop({
     type: String,

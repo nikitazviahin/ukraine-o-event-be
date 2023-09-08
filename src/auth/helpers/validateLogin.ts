@@ -1,8 +1,8 @@
 import { BadRequestException, ExecutionContext } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import { LogInUserDto } from '../dtos/loginUser.dto';
 import { validate } from 'class-validator';
 import { Request } from 'express';
+import { LogInUserDto } from '../dtos/loginUser.dto';
 
 const validateLogin = async (context: ExecutionContext) => {
   const request = context.switchToHttp().getRequest<Request>();

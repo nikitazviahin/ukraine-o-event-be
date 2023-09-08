@@ -44,4 +44,12 @@ export class AuthController {
   getAdminTest() {
     return { message: 'endpoint for admin' };
   }
+
+  @ApiBearerAuth()
+  @Roles('creator')
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Get('creatortest')
+  getCreatorTest() {
+    return { message: 'endpoint for creator' };
+  }
 }

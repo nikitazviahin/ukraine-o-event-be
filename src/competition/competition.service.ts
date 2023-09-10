@@ -17,6 +17,10 @@ export class CompetitionService {
     private readonly competitionModel: Model<CompetitionDocument>,
   ) {}
 
+  async getCompetitions() {
+    return await this.competitionModel.find();
+  }
+
   async createCompetition(competitionData: ICreateCompetition) {
     const competition = await this.competitionModel.create(competitionData);
     return { competitionId: competition._id };

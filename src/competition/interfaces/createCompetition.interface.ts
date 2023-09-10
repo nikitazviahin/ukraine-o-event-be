@@ -1,5 +1,4 @@
 import { EClass } from '../enums/class.enum';
-import { EDay } from '../enums/day.enum';
 import { ObjectId } from 'src/interfaces/objectId';
 
 export interface ICreateCompetition {
@@ -7,13 +6,9 @@ export interface ICreateCompetition {
 
   description: string;
 
-  startDate: Date;
-
-  endDate: Date;
+  competitionDate: Date;
 
   city: string;
-
-  days: EDay[];
 
   classes: EClass[];
 

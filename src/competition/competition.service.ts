@@ -22,6 +22,10 @@ export class CompetitionService {
     return { competitionId: competition._id };
   }
 
+  async getCompetitionById(id: ObjectId) {
+    return await this.competitionModel.findById(id);
+  }
+
   async getCompetitionsByOwnerId(ownerId: ObjectId) {
     const competitions = await this.competitionModel.find({
       ownerId,

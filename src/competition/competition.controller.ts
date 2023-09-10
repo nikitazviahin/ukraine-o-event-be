@@ -40,6 +40,15 @@ export class CompetitionController {
   }
 
   @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  async getCompetitionById(@Param('id', ParseObjectIdPipe) id: ObjectId) {
+    const result = await this.competitionService.getCompetitionById(id);
+
+    return result;
+  }
+
+  @ApiBearerAuth()
   @Roles('creator')
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Get('owner')

@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { EUserRole } from './enums/userRole.enum';
+import { Competition } from 'src/competition/competition.model';
 
 export type UserDocument = User & Document;
 
@@ -40,6 +41,9 @@ export class User {
 
   @Prop({ type: Number })
   si: number;
+
+  @Prop({ type: Types.ObjectId, ref: 'competition' })
+  competitionsOwned: Competition[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

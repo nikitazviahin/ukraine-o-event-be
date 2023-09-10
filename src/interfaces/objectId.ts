@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
+import { Types } from 'mongoose';
 
-type ObjectId = mongoose.Types.ObjectId;
+type ObjectId = Types.ObjectId;
 
 export { ObjectId };

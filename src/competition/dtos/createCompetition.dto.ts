@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsEnum, IsString } from 'class-validator';
 import { EClass } from '../enums/class.enum';
-import { EDay } from '../enums/day.enum';
 
 export class CreateCompetitionDto {
   @ApiProperty({ description: 'Competition name', example: 'Lion-cup' })
@@ -15,13 +14,9 @@ export class CreateCompetitionDto {
   @IsString()
   description: string;
 
-  @ApiProperty({ description: 'Competition start date', example: '2023-08-11' })
+  @ApiProperty({ description: 'Competition date', example: '2023-08-11' })
   @IsDateString()
-  startDate: Date;
-
-  @ApiProperty({ description: 'Competition end date', example: '2023-08-12' })
-  @IsDateString()
-  endDate: Date;
+  competitionDate: Date;
 
   @ApiProperty({
     description: 'City or area where competition is held',
@@ -29,14 +24,6 @@ export class CreateCompetitionDto {
   })
   @IsString()
   city: string;
-
-  @ApiProperty({
-    enum: EDay,
-    isArray: true,
-    example: [EDay.DAY1, EDay.DAY2],
-  })
-  @IsEnum(EDay, { each: true })
-  days: EDay[];
 
   @ApiProperty({
     enum: EClass,

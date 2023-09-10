@@ -1,7 +1,6 @@
-import mongoose, { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { EClass } from './enums/class.enum';
-import { EDay } from './enums/day.enum';
 
 export type CompetitionDocument = Competition & Document;
 
@@ -14,22 +13,16 @@ export class Competition {
   description: string;
 
   @Prop({ type: String, required: true })
-  startDate: string;
-
-  @Prop({ type: String, required: true })
-  endDate: string;
+  competitionDate: string;
 
   @Prop({ type: String, required: true })
   city: string;
 
-  @Prop({ type: [String], required: true, enum: EDay })
-  days: EDay[];
-
   @Prop({ type: [String], required: true, enum: EClass })
   classes: EClass[];
 
-  @Prop({ type: mongoose.Types.ObjectId, required: true })
-  ownerId: mongoose.Types.ObjectId;
+  @Prop({ type: Types.ObjectId, required: true, ref: 'user' })
+  ownerId: Types.ObjectId;
 }
 
 export const CompetitionSchema = SchemaFactory.createForClass(Competition);

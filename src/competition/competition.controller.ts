@@ -18,6 +18,7 @@ import { ParseObjectIdPipe } from 'src/pipes/parseObjectId.pipe';
 import { ObjectId } from 'src/interfaces/objectId';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RoleGuard } from 'src/auth/guards/role.guard';
+import { EUserRole } from 'src/user/enums/userRole.enum';
 
 @ApiTags('competitions')
 @Controller('competitions')
@@ -54,7 +55,7 @@ export class CompetitionController {
   }
 
   @ApiBearerAuth()
-  @Roles('creator')
+  @Roles(EUserRole.Creator)
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Get('owner')
   async getCompetitionsByOwnerId(@Request() req: IGetUserAuthInfoRequest) {
@@ -67,7 +68,7 @@ export class CompetitionController {
 
   @ApiBearerAuth()
   @ApiParam({ name: 'id', type: String })
-  @Roles('creator')
+  @Roles(EUserRole.Creator)
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Put(':id')
   async updateCompetitionById(

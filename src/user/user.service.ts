@@ -13,7 +13,7 @@ export class UserService {
   ) {}
 
   async createUser(userData: ICreateUser) {
-    const { email, password, club, si } = userData;
+    const { email, password } = userData;
     const saltOrRounds = 10;
 
     const hashedPassword = await bcrypt.hash(password, saltOrRounds);
@@ -26,17 +26,12 @@ export class UserService {
         HttpStatus.BAD_REQUEST,
       );
 
-    const user = {
+    const { _id: id } = await this.userModel.create({
       ...userData,
       password: hashedPassword,
-    };
+    });
 
-    if (club) user.club = club;
-    if (si) user.si = si;
-
-    const newUser = await this.userModel.create(user);
-
-    return { id: newUser.id };
+    return { id };
   }
 
   async getUserById(id: ObjectId) {

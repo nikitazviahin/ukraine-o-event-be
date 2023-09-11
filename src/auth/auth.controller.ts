@@ -15,6 +15,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { Roles } from './decorators/roles.decorator';
 import { LogInUserDto } from './dtos/loginUser.dto';
+import { EUserRole } from 'src/user/enums/userRole.enum';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -38,7 +39,7 @@ export class AuthController {
   }
 
   @ApiBearerAuth()
-  @Roles('admin')
+  @Roles(EUserRole.Admin)
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Get('admintest')
   getAdminTest() {
@@ -46,7 +47,7 @@ export class AuthController {
   }
 
   @ApiBearerAuth()
-  @Roles('creator')
+  @Roles(EUserRole.Creator)
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Get('creatortest')
   getCreatorTest() {

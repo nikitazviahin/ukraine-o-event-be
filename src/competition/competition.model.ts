@@ -16,7 +16,7 @@ export class Competition {
   competitionDate: string;
 
   @Prop({ type: String, required: true })
-  city: string;
+  place: string;
 
   @Prop({ type: [String], required: true, enum: EClass })
   classes: EClass[];

@@ -22,12 +22,12 @@ export class UpdateCompetitionByIdDto {
   competitionDate: Date;
 
   @ApiProperty({
-    description: 'City or area where competition is held',
+    description: 'Place or area where competition is held',
     example: 'Lviv',
   })
   @IsString()
   @IsOptional()
-  city: string;
+  place: string;
 
   @ApiProperty({
     enum: EClass,

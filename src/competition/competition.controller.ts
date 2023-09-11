@@ -47,13 +47,6 @@ export class CompetitionController {
     return result;
   }
 
-  @Get(':id')
-  async getCompetitionById(@Param('id', ParseObjectIdPipe) id: ObjectId) {
-    const result = await this.competitionService.getCompetitionById(id);
-
-    return result;
-  }
-
   @ApiBearerAuth()
   @Roles(EUserRole.Creator)
   @UseGuards(JwtAuthGuard, RoleGuard)
@@ -62,6 +55,13 @@ export class CompetitionController {
     const result = await this.competitionService.getCompetitionsByOwnerId(
       req.user.id,
     );
+
+    return result;
+  }
+
+  @Get(':id')
+  async getCompetitionById(@Param('id', ParseObjectIdPipe) id: ObjectId) {
+    const result = await this.competitionService.getCompetitionById(id);
 
     return result;
   }

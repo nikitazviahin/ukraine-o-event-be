@@ -8,7 +8,7 @@ export interface ICreateCompetition {
 
   competitionDate: Date;
 
-  city: string;
+  place: string;
 
   classes: EClass[];
 

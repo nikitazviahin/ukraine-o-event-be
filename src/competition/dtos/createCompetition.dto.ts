@@ -19,11 +19,11 @@ export class CreateCompetitionDto {
   competitionDate: Date;
 
   @ApiProperty({
-    description: 'City or area where competition is held',
+    description: 'Place or area where competition is held',
     example: 'Lviv',
   })
   @IsString()
-  city: string;
+  place: string;
 
   @ApiProperty({
     enum: EClass,

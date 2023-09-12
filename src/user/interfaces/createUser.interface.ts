@@ -10,8 +10,6 @@ interface ICreateUser {
   dateOfBirth: Date;
 
   club?: string;
-
-  si?: number;
 }
 
 export { ICreateUser };

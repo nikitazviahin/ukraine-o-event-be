@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { CompetitionModule } from './competition/competition.module';
+import { ApplicationModule } from './application/application.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CompetitionModule } from './competition/competition.module';
     UserModule,
     AuthModule,
     CompetitionModule,
+    ApplicationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

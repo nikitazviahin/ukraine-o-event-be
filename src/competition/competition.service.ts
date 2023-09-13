@@ -27,7 +27,11 @@ export class CompetitionService {
   }
 
   async getCompetitionById(id: ObjectId) {
-    return await this.competitionModel.findById(id);
+    const competition = await this.competitionModel.findById(id);
+
+    if (!competition) throw new NotFoundException();
+
+    return competition;
   }
 
   async getCompetitionsByOwnerId(ownerId: ObjectId) {

@@ -12,7 +12,7 @@ export class Application {
   @Prop({ type: Types.ObjectId, required: true, ref: 'competition' })
   competitionId: Types.ObjectId;
 
-  @Prop({ type: [String], required: true, enum: EClass })
+  @Prop({ type: String, required: true, enum: EClass })
   class: EClass;
 
   @Prop({ type: Boolean, required: true, default: false })

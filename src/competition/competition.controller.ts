@@ -6,8 +6,15 @@ import {
   UseGuards,
   Param,
   Put,
+  HttpCode,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Request } from '@nestjs/common';
 import { CompetitionService } from './competition.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -26,20 +33,37 @@ export class CompetitionController {
   constructor(private readonly competitionService: CompetitionService) {}
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Create new competition' })
+  @ApiResponse({ status: 400, description: 'Bad request.' })
+  @ApiResponse({ status: 401, description: 'Unathorized.' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({
+    status: 201,
+    description: 'Competition created',
+  })
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Roles(EUserRole.Creator)
   @Post()
   async createCompetition(
     @Request() req: IGetUserAuthInfoRequest,
     @Body()
     createCompetitionDto: CreateCompetitionDto,
   ) {
+    const { id: ownerId } = req.user;
+
     const result = await this.competitionService.createCompetition({
       ...createCompetitionDto,
-      ownerId: req.user.id,
+      ownerId,
     });
+
     return result;
   }
 
+  @ApiOperation({ summary: 'Get all competitions' })
+  @ApiResponse({
+    status: 200,
+    description: 'Got all competitions',
+  })
   @Get()
   async getCompetitions() {
     const result = await this.competitionService.getCompetitions();
@@ -48,17 +72,29 @@ export class CompetitionController {
   }
 
   @ApiBearerAuth()
-  @Roles(EUserRole.Creator)
-  @UseGuards(JwtAuthGuard, RoleGuard)
+  @ApiOperation({ summary: 'Get all competitions for owner' })
+  @ApiResponse({ status: 401, description: 'Unathorized.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Got all competitions for owner',
+  })
+  @UseGuards(JwtAuthGuard)
   @Get('owner')
   async getCompetitionsByOwnerId(@Request() req: IGetUserAuthInfoRequest) {
-    const result = await this.competitionService.getCompetitionsByOwnerId(
-      req.user.id,
-    );
+    const { id } = req.user;
+
+    const result = await this.competitionService.getCompetitionsByOwnerId(id);
 
     return result;
   }
 
+  @ApiOperation({ summary: 'Get competition by id' })
+  @ApiResponse({ status: 400, description: 'Bad request.' })
+  @ApiResponse({ status: 404, description: 'Not found.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Got competition by id',
+  })
   @Get(':id')
   async getCompetitionById(@Param('id', ParseObjectIdPipe) id: ObjectId) {
     const result = await this.competitionService.getCompetitionById(id);
@@ -67,6 +103,16 @@ export class CompetitionController {
   }
 
   @ApiBearerAuth()
+  @ApiOperation({ summary: 'Update competition by id' })
+  @ApiResponse({ status: 400, description: 'Bad request.' })
+  @ApiResponse({ status: 401, description: 'Unathorized.' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ status: 404, description: 'Not found.' })
+  @ApiResponse({
+    status: 201,
+    description: 'Updated competition by id',
+  })
+  @HttpCode(201)
   @ApiParam({ name: 'id', type: String })
   @Roles(EUserRole.Creator)
   @UseGuards(JwtAuthGuard, RoleGuard)

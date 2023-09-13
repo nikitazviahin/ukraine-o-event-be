@@ -25,20 +25,10 @@ export class ApplicationService {
   async createApplication(applicationData: ICreateApplication) {
     const { userId, competitionId } = applicationData;
 
-    const user = await this.userService.getUserById(userId);
-    if (!user) throw new NotFoundException('User not found');
+    await this.userService.checkUserExists(userId);
+    await this.competitionService.checkCompetitionExists(competitionId);
 
-    const competition = await this.competitionService.getCompetitionById(
-      competitionId,
-    );
-    if (!competition) throw new NotFoundException('Competition not found');
-
-    const applicationExists = await this.applicationModel.findOne({
-      userId,
-      competitionId,
-    });
-
-    if (applicationExists)
+    if (this.checkApplicationExists(userId, competitionId))
       throw new HttpException(
         'Application already exists',
         HttpStatus.CONFLICT,
@@ -53,5 +43,17 @@ export class ApplicationService {
     const application = await this.applicationModel.findById(id);
     if (!application) throw new NotFoundException();
     return application;
+  }
+
+  private async checkApplicationExists(
+    userId: ObjectId,
+    competitionId: ObjectId,
+  ): Promise<boolean> {
+    const applicationExists = await this.applicationModel.findOne({
+      userId,
+      competitionId,
+    });
+
+    return applicationExists ? true : false;
   }
 }

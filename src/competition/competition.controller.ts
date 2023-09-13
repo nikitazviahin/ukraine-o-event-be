@@ -55,7 +55,6 @@ export class CompetitionController {
       ...createCompetitionDto,
       ownerId,
     });
-
     return result;
   }
 
@@ -67,7 +66,6 @@ export class CompetitionController {
   @Get()
   async getCompetitions() {
     const result = await this.competitionService.getCompetitions();
-
     return result;
   }
 
@@ -84,7 +82,6 @@ export class CompetitionController {
     const { id } = req.user;
 
     const result = await this.competitionService.getCompetitionsByOwnerId(id);
-
     return result;
   }
 

@@ -25,17 +25,25 @@ export class ApplicationService {
   async createApplication(applicationData: ICreateApplication) {
     const { userId, competitionId } = applicationData;
 
-    await this.userService.checkUserExists(userId);
-    await this.competitionService.checkCompetitionExists(competitionId);
+    const user = await this.userService.getUserById(userId);
+    const competition = await this.competitionService.getCompetitionById(
+      competitionId,
+    );
 
-    if (this.checkApplicationExists(userId, competitionId))
+    if (!user || !competition) throw new NotFoundException();
+
+    const isApplicationExists = await this.checkApplicationExists(
+      userId,
+      competitionId,
+    );
+    
+    if (isApplicationExists)
       throw new HttpException(
         'Application already exists',
         HttpStatus.CONFLICT,
       );
 
     const application = await this.applicationModel.create(applicationData);
-
     return application;
   }
 

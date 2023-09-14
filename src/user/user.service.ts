@@ -47,11 +47,6 @@ export class UserService {
     return user;
   }
 
-  async checkUserExists(id: ObjectId): Promise<void> {
-    const user = await this.userModel.findById(id);
-    if (!user) throw new NotFoundException();
-  }
-
   async getUserByEmail(email: string) {
     return await this.userModel.findOne({ email });
   }

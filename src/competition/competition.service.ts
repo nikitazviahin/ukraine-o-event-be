@@ -62,9 +62,4 @@ export class CompetitionService {
 
     return updatedCompetition;
   }
-
-  async checkCompetitionExists(id: ObjectId): Promise<void> {
-    const competition = await this.competitionModel.findById(id);
-    if (!competition) throw new NotFoundException();
-  }
 }

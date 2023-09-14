@@ -36,7 +36,7 @@ export class ApplicationService {
       userId,
       competitionId,
     );
-    
+
     if (isApplicationExists)
       throw new HttpException(
         'Application already exists',
@@ -44,7 +44,7 @@ export class ApplicationService {
       );
 
     const application = await this.applicationModel.create(applicationData);
-    return application;
+    return { id: application._id };
   }
 
   async getApplicationById(id: ObjectId) {

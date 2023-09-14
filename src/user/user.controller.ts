@@ -1,15 +1,28 @@
 import {
   ApiBearerAuth,
+  ApiOkResponse,
   ApiOperation,
-  ApiResponse,
+  ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { ObjectId } from 'src/interfaces/objectId';
 import { ParseObjectIdPipe } from 'src/pipes/parseObjectId.pipe';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import {
+  CreateUserResponse,
+  GetUserByIdResponse,
+} from './interfaces/userResponses';
 
 @ApiTags('users')
 @Controller('users')
@@ -17,15 +30,7 @@ export class UserController {
   constructor(private readonly usersService: UserService) {}
 
   @ApiOperation({ summary: 'Sign up new user' })
-  @ApiResponse({ status: 400, description: 'Bad request.' })
-  @ApiResponse({
-    status: 409,
-    description: 'User with this email already exists.',
-  })
-  @ApiResponse({
-    status: 201,
-    description: 'User signed up',
-  })
+  @ApiOkResponse({ status: HttpStatus.CREATED, type: CreateUserResponse })
   @Post('signup')
   async createUser(@Body() createUserDto: CreateUserDto) {
     return await this.usersService.createUser(createUserDto);
@@ -33,17 +38,14 @@ export class UserController {
 
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get user by id' })
-  @ApiResponse({ status: 400, description: 'Bad request.' })
-  @ApiResponse({ status: 401, description: 'Unathorized.' })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @ApiResponse({ status: 404, description: 'Not found.' })
-  @ApiResponse({
-    status: 200,
-    description: 'Get user by id success',
+  @ApiOkResponse({
+    status: HttpStatus.OK,
+    type: GetUserByIdResponse,
   })
+  @ApiParam({ name: 'userId', type: String })
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  async getUserById(@Param('id', ParseObjectIdPipe) id: ObjectId) {
+  @Get(':userId')
+  async getUserById(@Param('userId', ParseObjectIdPipe) id: ObjectId) {
     const result = await this.usersService.getUserById(id);
 
     return result;

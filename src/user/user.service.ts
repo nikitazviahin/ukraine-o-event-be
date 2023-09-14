@@ -40,7 +40,7 @@ export class UserService {
   }
 
   async getUserById(id: ObjectId) {
-    const user = await this.userModel.findById(id, { _id: 0, password: 0 });
+    const user = await this.userModel.findById(id);
 
     if (!user) throw new NotFoundException();
 

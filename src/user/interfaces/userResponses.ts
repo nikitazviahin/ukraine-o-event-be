@@ -23,7 +23,7 @@ export class GetUserByIdResponse {
 
   @ApiProperty({
     description: "User's roles",
-    example: ['admin', 'customer'],
+    example: [[EUserRole.Creator, EUserRole.Customer]],
   })
   roles: EUserRole[];
 

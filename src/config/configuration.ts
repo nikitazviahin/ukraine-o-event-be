@@ -4,4 +4,5 @@ export default () => ({
     uri: process.env.MONGO_URI,
   },
   jwtSecret: process.env.JWT_SECRET,
+  jwtExpirationSpan: '1d',
 });

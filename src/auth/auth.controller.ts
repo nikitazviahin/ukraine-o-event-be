@@ -6,9 +6,11 @@ import {
   Get,
   Body,
   HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
+  ApiOkResponse,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -16,12 +18,12 @@ import {
 import { IGetUserAuthInfoRequest } from 'src/interfaces/requestUserInfo.interface';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { ILoginResponse } from './interfaces/loginResponse.interface';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { Roles } from './decorators/roles.decorator';
 import { LogInUserDto } from './dtos/loginUser.dto';
 import { EUserRole } from 'src/user/enums/userRole.enum';
+import { GetProfileResponse, LoginResponse } from './interfaces/authResponses';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -30,29 +32,27 @@ export class AuthController {
 
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Log in user' })
-  @ApiResponse({ status: 400, description: 'Bad request.' })
-  @ApiResponse({ status: 401, description: 'Unathorized.' })
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
+    status: HttpStatus.OK,
     description: 'Login success',
+    type: LoginResponse,
   })
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  @HttpCode(200)
+  @HttpCode(HttpStatus.OK)
   async login(
     @Body() _: LogInUserDto, //dto for custom validation purposes
     @Request() req: IGetUserAuthInfoRequest,
-  ): Promise<ILoginResponse> {
+  ) {
     return this.authService.login(req.user);
   }
 
   @ApiBearerAuth()
   @ApiOperation({ summary: "Get user's profile" })
-  @ApiResponse({ status: 400, description: 'Bad request.' })
-  @ApiResponse({ status: 401, description: 'Unathorized.' })
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.CREATED,
     description: 'Get user profile success',
+    type: GetProfileResponse,
   })
   @UseGuards(JwtAuthGuard)
   @Get('profile')
@@ -60,28 +60,9 @@ export class AuthController {
     return req.user;
   }
 
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Test admin role endpoint' })
-  @ApiResponse({ status: 400, description: 'Bad request.' })
-  @ApiResponse({ status: 401, description: 'Unathorized.' })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @ApiResponse({
-    status: 200,
-    description: 'Test admin role endpoint success',
-  })
-  @Roles(EUserRole.Admin)
-  @UseGuards(JwtAuthGuard, RoleGuard)
-  @Get('admintest')
-  getAdminTest() {
-    return { message: 'endpoint for admin' };
-  }
-
   @ApiOperation({ summary: 'Test creator role endpoint' })
-  @ApiResponse({ status: 400, description: 'Bad request.' })
-  @ApiResponse({ status: 401, description: 'Unathorized.' })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiResponse({
-    status: 200,
+    status: HttpStatus.CREATED,
     description: 'Test creator role endpoint success',
   })
   @ApiBearerAuth()

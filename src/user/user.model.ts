@@ -1,12 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { EUserRole } from './enums/userRole.enum';
+import { isEmail } from 'class-validator';
 
 export type UserDocument = User & Document;
 
 @Schema({ versionKey: false })
 export class User {
-  @Prop({ type: String, unique: true, required: true })
+  @Prop({
+    type: String,
+    unique: true,
+    required: true,
+    validate: [isEmail, 'Invalid email'],
+  })
   email: string;
 
   @Prop({ type: String, required: true })
@@ -23,19 +29,21 @@ export class User {
   @Prop({
     type: String,
     required: true,
+    maxlength: 50,
   })
   firstName: string;
 
   @Prop({
     type: String,
     required: true,
+    maxlength: 50,
   })
   lastName: string;
 
   @Prop({ type: Date, required: true })
   dateOfBirth: Date;
 
-  @Prop({ type: String })
+  @Prop({ type: String, maxlength: 100 })
   club: string;
 }
 

@@ -21,10 +21,9 @@ ENV NODE_ENV production
 
 # Pass those argumnt through command line
 ARG MONGO_URI 
-ARG PORT
 ARG JWT_SECRET
+ENV PORT=8080
 ENV MONGO_URI=${MONGO_URI}
-ENV PORT=${PORT}
 ENV JWT_SECRET=${JWT_SECRET}
 
 USER node

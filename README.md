@@ -78,5 +78,7 @@ MONGO_URI=
 JWT_SECRET=
 PORT=
 
-script for deployment of backend into prod:
+script for docker build of backend into prod:
 ocker build --build-arg MONGO_URI= --build-arg JWT_SECRET= -t ukraine-o-event-be .
+script for docker build of frontend into prod:
+ docker-compose -f docker-compose.prod.yml build

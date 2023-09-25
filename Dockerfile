@@ -19,6 +19,7 @@ FROM node:slim
 
 ENV NODE_ENV production
 
+# Pass those argumnt through command line
 ARG MONGO_URI 
 ARG PORT
 ARG JWT_SECRET
@@ -39,5 +40,7 @@ COPY package*.json ./
 RUN npm ci --production
 
 COPY --from=builder /usr/src/app/dist ./dist
+
+EXPOSE 8080
 
 CMD [ "node", "dist/main.js" ]

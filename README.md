@@ -77,3 +77,6 @@ Nest is [MIT licensed](LICENSE).
 MONGO_URI=
 JWT_SECRET=
 PORT=
+
+script for deployment of backend into prod:
+ocker build --build-arg MONGO_URI= --build-arg PORT= --build-arg JWT_SECRET= -t ukraine-o-event-be .

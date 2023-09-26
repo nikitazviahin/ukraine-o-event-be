@@ -19,7 +19,7 @@ FROM node:slim
 
 ENV NODE_ENV production
 
-# Pass those argumnt through command line
+# Pass those argumnt through command line if building locally for dev
 ARG MONGO_URI 
 ARG JWT_SECRET
 ENV PORT=8080

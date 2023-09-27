@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ObjectId } from 'src/interfaces/objectId';
-import { EClass } from '../enums/class.enum';
+import { EClass } from '../competition.model';
 
 export class CompetitionCreatedResponse {
   @ApiProperty({ example: '65006a51c2bb6ab38dbd9068' })

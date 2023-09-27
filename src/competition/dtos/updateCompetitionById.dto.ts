@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsEnum, IsOptional, IsString } from 'class-validator';
-import { EClass } from '../enums/class.enum';
+import { EClass } from '../competition.model';
 
 export class UpdateCompetitionByIdDto {
   @ApiProperty({ description: 'Competition name', example: 'Lion-cup' })

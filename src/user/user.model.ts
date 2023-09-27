@@ -1,7 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { EUserRole } from './enums/userRole.enum';
 import { isEmail } from 'class-validator';
+
+export enum EUserRole {
+  Customer = 'customer',
+  Creator = 'creator',
+}
 
 export type UserDocument = User & Document;
 

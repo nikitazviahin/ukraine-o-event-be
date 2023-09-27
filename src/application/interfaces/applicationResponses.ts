@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { EClass } from 'src/competition/enums/class.enum';
+import { EClass } from 'src/competition/competition.model';
 import { ObjectId } from 'src/interfaces/objectId';
 
 export class CreateApplicationResponse {

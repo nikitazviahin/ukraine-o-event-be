@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { EClass } from 'src/competition/enums/class.enum';
+import { EClass } from 'src/competition/competition.model';
 
 export type ApplicationDocument = Application & Document;
 

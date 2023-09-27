@@ -27,11 +27,11 @@ import { ParseObjectIdPipe } from 'src/pipes/parseObjectId.pipe';
 import { ObjectId } from 'src/interfaces/objectId';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RoleGuard } from 'src/auth/guards/role.guard';
-import { EUserRole } from 'src/user/enums/userRole.enum';
 import {
   CompetitionCreatedResponse,
   GetCompetitionResponse,
-} from './interfaces/competitionResponces';
+} from './responseClasses/competitionResponces';
+import { EUserRole } from 'src/user/user.model';
 
 @ApiTags('competitions')
 @Controller('competitions')

@@ -1,8 +1,16 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { EClass } from './enums/class.enum';
 
 export type CompetitionDocument = Competition & Document;
+
+export enum EClass {
+  M21 = 'M21',
+  W21 = 'W21',
+  M20 = 'M20',
+  W20 = 'W20',
+  M18 = 'M18',
+  W18 = 'W18',
+}
 
 @Schema({ versionKey: false })
 export class Competition {

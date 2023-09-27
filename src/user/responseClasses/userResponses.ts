@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 import { ObjectId } from 'src/interfaces/objectId';
-import { EUserRole } from '../enums/userRole.enum';
+import { EUserRole } from '../user.model';
 
 export class CreateUserResponse {
   @ApiProperty({ example: '6502c937dd99d1aeffc3f6e1' })

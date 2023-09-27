@@ -22,7 +22,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import {
   CreateUserResponse,
   GetUserByIdResponse,
-} from './interfaces/userResponses';
+} from './responseClasses/userResponses';
 
 @ApiTags('users')
 @Controller('users')

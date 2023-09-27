@@ -22,8 +22,11 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { Roles } from './decorators/roles.decorator';
 import { LogInUserDto } from './dtos/loginUser.dto';
-import { EUserRole } from 'src/user/enums/userRole.enum';
-import { GetProfileResponse, LoginResponse } from './interfaces/authResponses';
+import { EUserRole } from 'src/user/user.model';
+import {
+  GetProfileResponse,
+  LoginResponse,
+} from './responseClasses/authResponses';
 
 @ApiTags('auth')
 @Controller('auth')

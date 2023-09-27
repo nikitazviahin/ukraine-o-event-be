@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsMongoId, IsNumber } from 'class-validator';
-import { EClass } from 'src/competition/enums/class.enum';
+import { EClass } from 'src/competition/competition.model';
 import { ObjectId } from 'src/interfaces/objectId';
 
 export class CreateApplicationDto {

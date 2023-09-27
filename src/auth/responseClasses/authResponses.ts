@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ObjectId } from 'src/interfaces/objectId';
-import { EUserRole } from 'src/user/enums/userRole.enum';
+import { EUserRole } from 'src/user/user.model';
 
 export class LoginResponse {
   @ApiProperty({

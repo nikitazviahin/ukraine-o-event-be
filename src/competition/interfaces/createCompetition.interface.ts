@@ -1,5 +1,5 @@
-import { EClass } from '../enums/class.enum';
 import { ObjectId } from 'src/interfaces/objectId';
+import { EClass } from '../competition.model';
 
 export interface ICreateCompetition {
   name: string;
